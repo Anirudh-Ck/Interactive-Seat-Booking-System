@@ -45,7 +45,7 @@ function BookingSummary() {
           <span className="text-lg font-bold">₹0</span>
         </div>
         <hr className="my-4" />
-        <div className="flex justify-between text-xl font-bold">
+        <div className="flex justify-between text-xl font-bold">  
           <span>Total</span>
           <span>₹{totalCost}</span>
         </div>
