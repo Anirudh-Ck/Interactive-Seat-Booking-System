@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <header className="flex items-center justify-between px-6 py-3 shadow-md bg-white">
       <div className="flex items-center font-bold text-xl sm:text-2xl">
-        <h1>Logo</h1>
+        <h1><a href="/">Logo</a></h1>
       </div>
 
       <nav className="hidden md:flex space-x-6 text-lg font-medium text-black">

@@ -25,12 +25,4 @@ const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-
-
-// const store = configureStore({
-//   reducer: {
-//     seats: seatReducer,
-//   },
-// });
-
 export default store;
