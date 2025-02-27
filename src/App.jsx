@@ -1,8 +1,9 @@
 import { useState } from "react";
 import "./App.css";
 import Home from "./components/Home";
-import Summary from "./components/Summary";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Summary from "./components/summary/Summary";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -12,7 +13,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/summary" element={<Summary />} />
+          <Route path="/summary" element={<Summary/>} />
           <Route path="*" element={() => <h1>Page not found</h1>} />
         </Routes>
       </Router>

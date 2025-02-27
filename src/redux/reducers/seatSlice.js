@@ -54,8 +54,20 @@ const seatSlice = createSlice({
        
       }
     },
+
+    resetSeats: (state) => {
+        state.selectedSeats = [];
+        state.totalCost = 0;
+        state.selectedSeatCount = {
+          Platinum: 0,
+          Gold: 0,
+          Silver: 0,
+        };
+        state.error = "";
+      }
+
   },
 });
 
-export const { toggleSeatSelection } = seatSlice.actions;
+export const { toggleSeatSelection, resetSeats } = seatSlice.actions;
 export default seatSlice.reducer;
