@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { IoMdClose } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { userRegister } from "../redux/reducers/userSlice";
+import { Toaster, toast } from 'sonner'
 
 Modal.setAppElement("#root");
 
@@ -18,9 +19,13 @@ function Register({ isOpen, onClose }) {
     e.preventDefault();
     try{
       dispatch(userRegister(formData));
+      toast.success("Registered Successfully");
+      
     }
     catch(error){
-      console.log(error)
+      console.log(error);
+      toast.error(error);
+      
     }
     onClose();
   };
@@ -33,6 +38,7 @@ function Register({ isOpen, onClose }) {
       className="flex items-center justify-center fixed inset-0 bg-gray-100 bg-opacity-50"
       overlayClassName="fixed inset-0"
     >
+       <Toaster position="top-right" richColors />
       <div className="bg-white rounded-lg p-6 w-96 shadow-lg relative">
         {/* Header */}
         <div className="flex justify-between items-center  pb-2">
