@@ -4,14 +4,19 @@ import { toggleSeatSelection } from "../redux/reducers/seatSlice";
 import { Toaster, toast } from 'sonner'
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import Register from "./Register";
 
 
 const rows = ["A", "B", "C", "D", "E", "F"];
 const seatsPerRow = 10;
 function Home() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
   const dispatch = useDispatch();
   const { selectedSeats, totalCost, pricing, error, selectedSeatCount } = useSelector((state) => state.seats);
+  const { userDetails } = useSelector((state)=> state.user)
+  // console.log("userDetails",userDetails.name);
+  
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -24,6 +29,21 @@ function Home() {
     }
   }, [error]);
 
+  const handleBooking = () =>{
+    if(userDetails?.name){
+      navigate("/summary");
+    }
+    else{
+      setShowRegister(true)
+    }
+  }
+
+
+  // if(selectedSeats.length > 0){
+  //   navigate("/booking", { replace: true });
+  // }else{
+  //   toast.error("You must select at least one seat to proceed!");
+  // }
 
   return (
 
@@ -112,13 +132,19 @@ function Home() {
                     </div>
                 </div>
                 <div>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm sm:text-lg" onClick={() =>navigate("/summary")}>
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-sm sm:text-lg" onClick={handleBooking}>
                         Book Tickets
                     </button>
                 </div>
           </motion.div>
         )}
      </AnimatePresence>
+
+     <div>
+      {
+        showRegister && <Register isOpen={showRegister} onClose={() => setShowRegister(false)} />  // Show register modal when showRegister is true
+      }
+     </div>
 
   </div>
   );

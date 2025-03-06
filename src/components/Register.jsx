@@ -1,26 +1,81 @@
-import React from 'react'
+import React, { useState } from "react";
 import Modal from "react-modal";
+import { IoMdClose } from "react-icons/io";
+import { useDispatch } from "react-redux";
+import { userRegister } from "../redux/reducers/userSlice";
 
-function Register() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+Modal.setAppElement("#root");
+
+function Register({ isOpen, onClose }) {
+  const [formData, setFormData] = useState({ name: "", phone : ""})
+  const dispatch = useDispatch();
+
+  const handleChange = (e) =>{
+    setFormData({...formData, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    try{
+      dispatch(userRegister(formData));
+    }
+    catch(error){
+      console.log(error)
+    }
+    onClose();
+  };
+
   return (
-    <div>
-        <Modal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} className="flex justify-center items-center h-screen">
-        <div className="bg-white p-6 rounded-lg shadow-lg text-center w-11/12 max-w-sm md:max-w-md lg:max-w-lg">
-          <h2 className="text-2xl font-bold text-green-500">Booking Confirmed!</h2>
-          <div className="flex items-center justify-center">
-                {/* <div className="w-[180px] h-[180px] md:w-[200px] md:h-[200px]">
-                  <Lottie options={defaultOptions} />
-                </div> */}
-              </div>
-          <p className="mt-2 text-gray-600">Your booking has been successfully processed.</p>
-          <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:cursor-pointer">
-            Go to Home page 
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      contentLabel="Register Modal"
+      className="flex items-center justify-center fixed inset-0 bg-gray-100 bg-opacity-50"
+      overlayClassName="fixed inset-0"
+    >
+      <div className="bg-white rounded-lg p-6 w-96 shadow-lg relative">
+        {/* Header */}
+        <div className="flex justify-between items-center border-b pb-2">
+          <h2 className="text-xl font-semibold">Register</h2>
+          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
+            <IoMdClose size={24} />
           </button>
         </div>
-      </Modal>
-    </div>
-  )
+
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="mt-4">
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">Name:</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium text-gray-700">Phone:</label>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-700 transition"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </Modal>
+  );
 }
 
-export default Register
+export default Register;

@@ -1,8 +1,10 @@
 import React from "react";
 // import { FaGooglePlay, FaApple, FaUserCircle } from "react-icons/fa";
 import { FaUserCircle } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const {userDetails} = useSelector((state) => state.user);
   return (
     <header className="flex items-center justify-between px-6 py-3 shadow-md bg-white">
       <div className="flex items-center font-bold text-xl sm:text-2xl">
@@ -18,7 +20,7 @@ const Header = () => {
 
       <div className="flex items-center space-x-4">
         <div className="flex items-center bg-blue-900 text-white px-3 py-1 rounded-full">
-          <span className="text-sm mr-2">Hi, UserName</span>
+          <span className="text-sm mr-2">Hi, {userDetails ? userDetails.name : "Guest" }</span>
           <FaUserCircle className="text-xl" />
         </div>
       </div>
