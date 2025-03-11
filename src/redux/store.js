@@ -8,7 +8,7 @@ import persistReducer from "redux-persist/es/persistReducer";
 const persistConfig ={
     key: 'root',
     storage,
-    whitelist: ['seats']
+    whitelist: ['seats','user']
 }
 
 const rootReducer = combineReducers({
